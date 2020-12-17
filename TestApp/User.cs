@@ -19,7 +19,7 @@ namespace TestApp
         {
             Console.WriteLine("Введите свой логин");
             string l = Console.ReadLine();
-            Console.WriteLine("Введите свой пароль");
+            Console.WriteLine("\nВведите свой пароль");
             string p = Console.ReadLine();
             if (login == l && password == p)
             {
@@ -27,7 +27,7 @@ namespace TestApp
             }
             else
             {
-                throw new Exception("У вас что-то не так"); ;
+                throw new Exception("У вас что-то не так");
             }
         }
         public string GetName()
