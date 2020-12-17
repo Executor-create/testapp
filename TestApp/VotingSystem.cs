@@ -12,20 +12,22 @@ namespace TestApp
         private static User currentUser;
         static void Main(string[] args)
         {
-            addUser();
+            List<User> users = new List<User>();
+            users.Add(new User("Tom McConor", "qwrqr", "werwer"));
+            users.Add(new User("Jack Doglas", "Jacki21", "qwets2"));
+            users.Add(new User("Bob Robinson", "Bobik", "bwergr2"));
+            users.Add(new User("Elvis Cooper", "Elden", "234gdqw"));
+            users.Add(new User("Mike Clark", "Hadler", "irhn2"));
+            foreach (User u in users)
+            {
+                Console.WriteLine(u.GetName());
+                u.Enter();
+
+            }
         }
         private static void addUser()
         {
-            List<User> users = new List<User>();
-            users.Add(new User("Tom", "hawer52", "rgdqwer23"));
-            users.Add(new User("Jack", "Jacki21", "qwets2"));
-            users.Add(new User("Bob", "Bobik", "bwergr2"));
-            users.Add(new User("Elvis", "Elden", "234gdqw"));
-            users.Add(new User("Mike", "Hadler", "irhn2"));
-            foreach (var u in users)
-            {
-                Console.WriteLine(u);
-            }
+            
         }
         private static void findUser(User login, User password)
         {

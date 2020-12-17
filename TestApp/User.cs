@@ -15,15 +15,19 @@ namespace TestApp
             login = Login;
             password = Password;
         }
-        public bool Enter(string _login, string _password)
+        public bool Enter()
         {
-            if (login == _login && password == _password)
+            Console.WriteLine("Введите свой логин");
+            string l = Console.ReadLine();
+            Console.WriteLine("Введите свой пароль");
+            string p = Console.ReadLine();
+            if (login == l && password == p)
             {
                 return true;
             }
             else
             {
-                throw new NullReferenceException("У вас что-то не так");
+                throw new Exception("У вас что-то не так");
             }
         }
         public string GetName()

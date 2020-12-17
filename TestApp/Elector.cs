@@ -18,7 +18,7 @@ namespace TestApp
         }
         public void Vote()
         {
-
+            voted = true;
         }
     }
 }
