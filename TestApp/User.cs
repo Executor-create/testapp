@@ -27,7 +27,7 @@ namespace TestApp
             }
             else
             {
-                throw new Exception("У вас что-то не так");
+                throw new Exception("У вас что-то не так"); ;
             }
         }
         public string GetName()
