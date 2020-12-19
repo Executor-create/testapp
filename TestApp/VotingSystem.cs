@@ -7,42 +7,65 @@ namespace TestApp
 {
     class VotingSystem
     {
-        private static List<User> users;
+        private static List<User> users = new List<User>();
         private Voting currentVoting;
         private static User currentUser;
+
         static void Main(string[] args)
         {
-            List<User> users = new List<User>();
+            //Initi users
             users.Add(new User("Jack Doglas", "Jacki21", "qwets2"));
             users.Add(new User("Bob Robinson", "Bobik", "bwergr2"));
             users.Add(new User("Elvis Cooper", "Elden", "2gdqw"));
             users.Add(new User("Mike Clark", "Hadler", "irhn2"));
-            foreach (User u in users)
+
+            //Login as user
+            while (currentUser == null)
             {
-                Console.WriteLine(u.GetName());
-                u.Enter();
-                
+                Console.WriteLine("Please enter your login");
+                string login = Console.ReadLine();
+
+                Console.WriteLine("Please enter your password");
+                string password = Console.ReadLine();
+
+                currentUser = findUser(login, password);
+
+                if (currentUser != null)
+                {
+                    Console.WriteLine(currentUser.GetName());
+                }
+                else
+                {
+                    Console.WriteLine("Неправильный логин или пароль");
+                }
             }
 
             Console.WriteLine("----------------");
 
             List<Candidate> candidates = new List<Candidate>();
-            candidates.Add(new Candidate("1.Donald Johnson"));
-            candidates.Add(new Candidate("2.Jonny Davis"));
-            candidates.Add(new Candidate("3.Harry Wilson"));
+
+            candidates.Add(new Candidate("Donald Johnson"));
+            candidates.Add(new Candidate("Jonny Davis"));
+            candidates.Add(new Candidate("Harry Wilson"));
+
+            var index = 0;
+
             foreach(Candidate c in candidates)
             {
-                Console.WriteLine(c.GetName());
+                index++;
+                Console.WriteLine(index + ". " + c.GetName());
                 c.getVoices();
             }
           
             Console.ReadKey();
         }
-        private static void findUser(User login, User password)
+
+        public static User findUser(string login, string password)
         {
-            users.Find(currentUser => (currentUser == login) && (currentUser == password));
+            return users.Find(currentUser => currentUser.Enter(login, password));
         }
-        private static List<Candidate> getResults()
+
+        private List<Candidate> getResults()
         {
             List<Candidate> candidates = new List<Candidate>();
             return candidates;
