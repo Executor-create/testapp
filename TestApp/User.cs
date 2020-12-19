@@ -4,35 +4,30 @@ using System.Text;
 
 namespace TestApp
 {
-    class User
+    public class User
     {
         private string name;
         private string login;
         private string password;
+
         public User(string Name, string Login, string Password)
         {
             name = Name;
             login = Login;
             password = Password;
         }
-        public bool Enter()
+
+        public bool Enter(string login, string password)
         {
-            Console.WriteLine("Введите свой логин");
-            string l = Console.ReadLine();
-            Console.WriteLine("\nВведите свой пароль");
-            string p = Console.ReadLine();
-            if (login == l && password == p)
-            {
+            if (this.login == login && this.password == password)
                 return true;
-            }
-            else
-            {
-                throw new Exception("У вас что-то не так");
-            }
+
+            return false;
         }
+
         public string GetName()
         {
-            return name;
+            return this.name;
         }
     }
 }
