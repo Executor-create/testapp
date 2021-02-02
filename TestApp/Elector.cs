@@ -6,7 +6,7 @@ namespace TestApp
 {
     public class Elector : User
     {
-        private bool voted;
+        private static bool voted;
 
         public Elector(string name, string login, string password)
             : base(name, login, password)
@@ -18,7 +18,7 @@ namespace TestApp
             return voted;
         }
 
-        public void Vote()
+        public static void Vote()
         {
             voted = true;
         }
