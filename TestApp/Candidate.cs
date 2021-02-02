@@ -7,11 +7,11 @@ namespace TestApp
     class Candidate
     {
         private string name;
-        private int voices = 0;
+        private static int voices = 0;
 
-        public Candidate(string Name)
+        public Candidate(string name)
         {
-            name = Name;
+            this.name = name;
         }
 
         public string GetName()
@@ -19,7 +19,7 @@ namespace TestApp
             return name;
         }
 
-        public void AddVoice()
+        public static void AddVoice()
         {
             voices++;
         }
