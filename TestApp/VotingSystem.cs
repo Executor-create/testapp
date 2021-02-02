@@ -111,6 +111,10 @@ namespace TestApp
                         break;
                 }
             }
+            else
+            {
+                Console.WriteLine("Вы не вошли в свой аккаунт");
+            }
         }
 
         private static List<Candidate> getResults()
