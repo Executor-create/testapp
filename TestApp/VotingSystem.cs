@@ -14,7 +14,7 @@ namespace TestApp
         static void Main(string[] args)
         {
             Menu();
-          
+
             Console.ReadLine();
         }
 
@@ -95,12 +95,18 @@ namespace TestApp
 
         private static void ElectorVote()
         {
-            if (currentUser.Enter && currentUser.Vote)
+            if (currentUser.Enter())
             {
-                string name = Console.ReadLine();
-                switch (name)
+                string candidateName = Console.ReadLine();
+                switch (candidateName)
                 {
                     case "Donald Johnson":
+                        AddVoice();
+                        break;
+                    case "Jonny Davis":
+                        AddVoice();
+                        break;
+                    case "Harry Wilson":
                         AddVoice();
                         break;
                 }
