@@ -8,9 +8,9 @@ namespace TestApp
     {
         private string title;
         private List<Candidate> candidats;
-        public Voting(string Title, List<Candidate> candidats)
+        public Voting(string title, List<Candidate> candidats)
         {
-            title = Title;
+            this.title = title;
             List<Candidate> Candidate = candidats;
         }
     }
