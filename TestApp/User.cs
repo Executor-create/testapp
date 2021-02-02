@@ -10,11 +10,11 @@ namespace TestApp
         private string login;
         private string password;
 
-        public User(string Name, string Login, string Password)
+        public User(string name, string login, string password)
         {
-            name = Name;
-            login = Login;
-            password = Password;
+            this.name = name;
+            this.login = login;
+            this.password = password;
         }
 
         public bool Enter(string login, string password)
@@ -27,7 +27,7 @@ namespace TestApp
 
         public string GetName()
         {
-            return this.name;
+            return name;
         }
     }
 }
