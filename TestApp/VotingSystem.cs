@@ -114,6 +114,7 @@ namespace TestApp
             else
             {
                 Console.WriteLine("Вы не вошли в свой аккаунт");
+                Menu();
             }
         }
 
