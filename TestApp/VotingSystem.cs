@@ -13,19 +13,56 @@ namespace TestApp
 
         static void Main(string[] args)
         {
-            //Initi users
-            users.Add(new User("Jack Doglas", "Jacki21", "qwets2"));
-            users.Add(new User("Bob Robinson", "Bobik", "bwergr2"));
-            users.Add(new User("Elvis Cooper", "Elden", "2gdqw"));
-            users.Add(new User("Mike Clark", "Hadler", "irhn2"));
+            Menu();
+          
+            Console.ReadLine();
+        }
 
-            //Login as user
+        private static User findUser(string login, string password)
+        {
+            return users.Find(currentUser => currentUser.Enter(login, password));
+        }
+
+        private static void Menu()
+        {
+            Console.WriteLine("1.Вход\n2.Регистрация\n3.Голосование\n4.Результаты\n5.Выход");
+            int n = Convert.ToInt32(Console.ReadLine());
+            do
+            {
+                switch (n)
+                {
+                    case 1:
+                        Enter();
+                        Menu();
+                        break;
+                    case 2:
+                        Registration();
+                        Menu();
+                        break;
+                    case 3:
+                        ElectorVote();
+                        Menu();
+                        break;
+                    case 4:
+                        getResults();
+                        Menu();
+                        break;
+                    case 5:
+                        Exit();
+                        break;
+                }
+
+            } while (n != 5);
+        }
+
+        private static void Enter()
+        {
             while (currentUser == null)
             {
-                Console.WriteLine("Please enter your login");
+                Console.WriteLine("Введите ваш логин");
                 string login = Console.ReadLine();
 
-                Console.WriteLine("Please enter your password");
+                Console.WriteLine("Введите ваш пароль");
                 string password = Console.ReadLine();
 
                 currentUser = findUser(login, password);
@@ -33,42 +70,72 @@ namespace TestApp
                 if (currentUser != null)
                 {
                     Console.WriteLine(currentUser.GetName());
+                    Console.WriteLine("Вы ввошли в аккаунт. Можете голосовать");
                 }
                 else
                 {
                     Console.WriteLine("Неправильный логин или пароль");
                 }
             }
+        }
 
-            Console.WriteLine("----------------");
+        private static void Registration()
+        {
+            Console.WriteLine("Введите ваше имя");
+            string name = Console.ReadLine();
 
+            Console.WriteLine("Введите ваш логин");
+            string login = Console.ReadLine();
+
+            Console.WriteLine("Введите ваш пароль");
+            string password = Console.ReadLine();
+
+            users.Add(new Elector(name, login, password));
+        }
+
+        private static void ElectorVote()
+        {
+            if (currentUser.Enter && currentUser.Vote)
+            {
+                string name = Console.ReadLine();
+                switch (name)
+                {
+                    case "Donald Johnson":
+                        AddVoice();
+                        break;
+                }
+            }
+        }
+
+        private static List<Candidate> getResults()
+        {
             List<Candidate> candidates = new List<Candidate>();
 
             candidates.Add(new Candidate("Donald Johnson"));
             candidates.Add(new Candidate("Jonny Davis"));
             candidates.Add(new Candidate("Harry Wilson"));
 
-            var index = 0;
+            int index = 0;
 
-            foreach(Candidate c in candidates)
+            foreach (Candidate c in candidates)
             {
                 index++;
                 Console.WriteLine(index + ". " + c.GetName());
-                c.getVoices();
+                Console.WriteLine(c.getVoices());
             }
-          
-            Console.ReadKey();
-        }
 
-        public static User findUser(string login, string password)
-        {
-            return users.Find(currentUser => currentUser.Enter(login, password));
-        }
-
-        private List<Candidate> getResults()
-        {
-            List<Candidate> candidates = new List<Candidate>();
             return candidates;
+        }
+
+        private static void Exit()
+        {
+            string stringInput = Console.ReadLine();
+
+            if (string.IsNullOrWhiteSpace(stringInput))
+            {
+                Console.WriteLine("!!!!!");
+                return;
+            }
         }
     }
 }
