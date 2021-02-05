@@ -8,7 +8,7 @@ namespace TestApp
     class VotingSystem
     {
         private static List<User> users = new List<User>();
-        private Voting currentVoting;
+        private static List<Candidate> candidates = new List<Candidate>();
         private static User currentUser;
 
         static void Main(string[] args)
@@ -25,44 +25,44 @@ namespace TestApp
 
         private static void Menu()
         {
-            Console.WriteLine("1.Вход\n2.Регистрация\n3.Голосование\n4.Результаты\n5.Выход");
-            int n = Convert.ToInt32(Console.ReadLine());
+            int n = 0;
             do
             {
+                Console.WriteLine("1.Login\n2.Regisration\n3.Vote\n4.Results\n5.Add Candidate\n6.Exit");
+                n = Convert.ToInt32(Console.ReadLine());
                 switch (n)
                 {
                     case 1:
-                        Enter();
-                        Menu();
+                        LogIn();
                         break;
                     case 2:
                         Registration();
-                        Menu();
                         break;
                     case 3:
                         ElectorVote();
-                        Menu();
                         break;
                     case 4:
                         getResults();
-                        Menu();
                         break;
                     case 5:
+                        AddCandidate();
+                        break;
+                    case 6:
                         Exit();
                         break;
                 }
 
-            } while (n != 5);
+            } while (n != 6);
         }
 
-        private static void Enter()
+        private static void LogIn()
         {
             while (currentUser == null)
             {
-                Console.WriteLine("Введите ваш логин");
+                Console.WriteLine("Enter your login");
                 string login = Console.ReadLine();
 
-                Console.WriteLine("Введите ваш пароль");
+                Console.WriteLine("Enter your password");
                 string password = Console.ReadLine();
 
                 currentUser = findUser(login, password);
@@ -70,69 +70,79 @@ namespace TestApp
                 if (currentUser != null)
                 {
                     Console.WriteLine(currentUser.GetName());
-                    Console.WriteLine("Вы ввошли в аккаунт. Можете голосовать");
+                    Console.WriteLine("You are logged into your account. You can vote");
                 }
                 else
                 {
-                    Console.WriteLine("Неправильный логин или пароль");
+                    Console.WriteLine("Incorrect login or password");
                 }
             }
         }
 
         private static void Registration()
         {
-            Console.WriteLine("Введите ваше имя");
+            Console.WriteLine("Enter your name");
             string name = Console.ReadLine();
 
-            Console.WriteLine("Введите ваш логин");
+            Console.WriteLine("Enter your login");
             string login = Console.ReadLine();
 
-            Console.WriteLine("Введите ваш пароль");
+            Console.WriteLine("Enter your password");
             string password = Console.ReadLine();
 
             users.Add(new Elector(name, login, password));
         }
 
-        private static void ElectorVote()
+        private static void AddCandidate()
         {
-            if (currentUser.Enter())
-            {
-                string candidateName = Console.ReadLine();
-                switch (candidateName)
-                {
-                    case "Donald Johnson":
-                        AddVoice();
-                        break;
-                    case "Jonny Davis":
-                        AddVoice();
-                        break;
-                    case "Harry Wilson":
-                        AddVoice();
-                        break;
-                }
-            }
-            else
-            {
-                Console.WriteLine("Вы не вошли в свой аккаунт");
-                Menu();
-            }
+            Console.WriteLine("Enter your name");
+            string name = Console.ReadLine();
+
+            candidates.Add(new Candidate(name));
         }
 
-        private static List<Candidate> getResults()
-        {
-            List<Candidate> candidates = new List<Candidate>();
-
-            candidates.Add(new Candidate("Donald Johnson"));
-            candidates.Add(new Candidate("Jonny Davis"));
-            candidates.Add(new Candidate("Harry Wilson"));
-
+        private static void ElectorVote()
+        { 
             int index = 0;
 
             foreach (Candidate c in candidates)
             {
                 index++;
                 Console.WriteLine(index + ". " + c.GetName());
-                Console.WriteLine(c.getVoices());
+            }
+
+            if (currentUser != null)
+            {
+                int candidateIndex = Convert.ToInt32(Console.ReadLine());
+                
+                switch (candidateIndex)
+                {
+                    case 1:
+                        Candidate.AddVoice();
+                        break;
+                    case 2:
+                        Candidate.AddVoice();
+                        break;
+                    case 3:
+                        Candidate.AddVoice();
+                        break;
+                }
+            }
+            else
+            {
+                Console.WriteLine("You are not logged into your account");
+                Menu();
+            }
+        }
+
+        private static List<Candidate> getResults()
+        {
+            int index = 0;
+
+            foreach (Candidate c in candidates)
+            {
+                index++;
+                Console.WriteLine(index + ". " + c.GetName() + " " + c.getVoices());
             }
 
             return candidates;
@@ -144,7 +154,7 @@ namespace TestApp
 
             if (string.IsNullOrWhiteSpace(stringInput))
             {
-                Console.WriteLine("!!!!!");
+                Console.WriteLine("Exit");
                 return;
             }
         }
