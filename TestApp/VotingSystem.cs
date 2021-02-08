@@ -25,12 +25,23 @@ namespace TestApp
 
         private static void Menu()
         {
-            int n = 0;
+            int menuIndex = 0;
             do
             {
                 Console.WriteLine("1.Login\n2.Regisration\n3.Vote\n4.Results\n5.Add Candidate\n6.Exit");
-                n = Convert.ToInt32(Console.ReadLine());
-                switch (n)
+
+                var answer = Console.ReadLine();
+
+                try
+                {
+                    menuIndex = Convert.ToInt32(answer);
+                }
+                catch
+                {
+                    Console.WriteLine("Enter correct value");
+                }
+
+                switch (menuIndex)
                 {
                     case 1:
                         LogIn();
@@ -52,7 +63,7 @@ namespace TestApp
                         break;
                 }
 
-            } while (n != 6);
+            } while (menuIndex != 6);
         }
 
         private static void LogIn()
@@ -75,6 +86,7 @@ namespace TestApp
                 else
                 {
                     Console.WriteLine("Incorrect login or password");
+
                 }
             }
         }
@@ -95,38 +107,27 @@ namespace TestApp
 
         private static void AddCandidate()
         {
-            Console.WriteLine("Enter your name");
+            Console.WriteLine("Enter candidate name");
             string name = Console.ReadLine();
 
             candidates.Add(new Candidate(name));
         }
 
         private static void ElectorVote()
-        { 
-            int index = 0;
+        {
+            int index = 1;
 
             foreach (Candidate c in candidates)
             {
-                index++;
                 Console.WriteLine(index + ". " + c.GetName());
+                index++;
             }
 
             if (currentUser != null)
             {
                 int candidateIndex = Convert.ToInt32(Console.ReadLine());
-                
-                switch (candidateIndex)
-                {
-                    case 1:
-                        Candidate.AddVoice();
-                        break;
-                    case 2:
-                        Candidate.AddVoice();
-                        break;
-                    case 3:
-                        Candidate.AddVoice();
-                        break;
-                }
+
+                candidates[candidateIndex - 1].AddVoice();
             }
             else
             {
@@ -137,12 +138,12 @@ namespace TestApp
 
         private static List<Candidate> getResults()
         {
-            int index = 0;
+            int index = 1;
 
             foreach (Candidate c in candidates)
             {
-                index++;
                 Console.WriteLine(index + ". " + c.GetName() + " " + c.getVoices());
+                index++;
             }
 
             return candidates;
