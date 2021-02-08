@@ -7,7 +7,7 @@ namespace TestApp
     class Candidate
     {
         private string name;
-        private static int voices = 0;
+        private int voices = 0;
 
         public Candidate(string name)
         {
@@ -19,7 +19,7 @@ namespace TestApp
             return name;
         }
 
-        public static void AddVoice()
+        public void AddVoice()
         {
             voices++;
         }
