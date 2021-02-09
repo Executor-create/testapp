@@ -117,9 +117,9 @@ namespace TestApp
         {
             int index = 1;
 
-            foreach (Candidate c in candidates)
+            foreach (Candidate candidate in candidates)
             {
-                Console.WriteLine(index + ". " + c.GetName());
+                Console.WriteLine(index + ". " + candidate.GetName());
                 index++;
             }
 
@@ -140,10 +140,19 @@ namespace TestApp
         {
             int index = 1;
 
-            foreach (Candidate c in candidates)
+            var CandidateVoice = from c in candidates
+                                 where c.getVoices() > 2
+                                 select c;
+
+            foreach (Candidate candidate in candidates)
             {
-                Console.WriteLine(index + ". " + c.GetName() + " " + c.getVoices());
+                Console.WriteLine(index + ". " + candidate.GetName() + " " + candidate.getVoices());
                 index++;
+            }
+
+            foreach (var c in CandidateVoice)
+            {
+                Console.WriteLine($"Most votes in {c.GetName()}" + " " + c.getVoices() + " .Hi won");
             }
 
             return candidates;
