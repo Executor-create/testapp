@@ -87,7 +87,6 @@ namespace TestApp
                 else
                 {
                     Console.WriteLine("Incorrect login or password");
-
                 }
             }
         }
