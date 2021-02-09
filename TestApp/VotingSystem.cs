@@ -26,6 +26,7 @@ namespace TestApp
         private static void Menu()
         {
             int menuIndex = 0;
+
             do
             {
                 Console.WriteLine("1.Login\n2.Regisration\n3.Vote\n4.Results\n5.Add Candidate\n6.Exit");
