@@ -125,9 +125,17 @@ namespace TestApp
 
             if (currentUser != null)
             {
-                int candidateIndex = Convert.ToInt32(Console.ReadLine());
+                if (((Elector)currentUser).IsVoted() == false)
+                {
+                    int candidateIndex = Convert.ToInt32(Console.ReadLine());
 
-                candidates[candidateIndex - 1].AddVoice();
+                    candidates[candidateIndex - 1].AddVoice();
+                    ((Elector)currentUser).Vote();
+                }
+                else
+                {
+                    Console.WriteLine("You have already voted");
+                }
             }
             else
             {
