@@ -11,6 +11,7 @@ namespace TestApp
         public Elector(string name, string login, string password)
             : base(name, login, password)
         {
+            voted = false;
         }
 
         public bool IsVoted()
