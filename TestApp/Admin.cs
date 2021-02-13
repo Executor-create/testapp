@@ -30,7 +30,12 @@ namespace TestApp
 
         public bool IsAdmin()
         {
-            return admin = true;
+            return admin;
+        }
+
+        public void TrueAdmin()
+        {
+            admin = true;
         }
     }
 }
