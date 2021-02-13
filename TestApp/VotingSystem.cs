@@ -10,6 +10,7 @@ namespace TestApp
         private static List<User> users = new List<User>();
         private static List<Candidate> candidates = new List<Candidate>();
         private static User currentUser;
+        private static Admin admin = new Admin("admin", "admin", "123");
 
         static void Main(string[] args)
         {
@@ -29,7 +30,7 @@ namespace TestApp
 
             do
             {
-                Console.WriteLine("1.Login\n2.Regisration\n3.Vote\n4.Results\n5.Add Candidate\n6.Exit");
+                Console.WriteLine("1.Login\n2.Regisration\n3.Vote\n4.Results\n5.Add Candidate\n6.Admin cabinet\n7.Exit");
 
                 var answer = Console.ReadLine();
 
@@ -60,6 +61,9 @@ namespace TestApp
                         AddCandidate();
                         break;
                     case 6:
+                        AdminCabinet();
+                        break;
+                    case 7:
                         Exit();
                         break;
                 }
@@ -105,12 +109,38 @@ namespace TestApp
             users.Add(new Elector(name, login, password));
         }
 
+        private static void AdminCabinet()
+        {
+            Console.WriteLine("Enter your login");
+            string login = Console.ReadLine();
+
+            Console.WriteLine("Enter your password");
+            string password = Console.ReadLine();
+
+            if (admin.AdminEnter(login, password))
+            {
+                Console.WriteLine("Welcome to admine cabinet");
+                Menu();
+            }
+            else
+            {
+                Console.WriteLine("Wrong login or password");
+            }
+        }
+
         private static void AddCandidate()
         {
-            Console.WriteLine("Enter candidate name");
-            string name = Console.ReadLine();
+            if (admin.IsAdmin() == true)
+            {
+                Console.WriteLine("Enter candidate name");
+                string name = Console.ReadLine();
 
-            candidates.Add(new Candidate(name));
+                candidates.Add(new Candidate(name));
+            }
+            else if (currentUser != admin)
+            {
+                Console.WriteLine("You is not admin");
+            }
         }
 
         private static void ElectorVote()
@@ -152,15 +182,23 @@ namespace TestApp
                                  where c.getVoices() > 2
                                  select c;
 
-            foreach (Candidate candidate in candidates)
+            if (admin.IsAdmin() == true)
             {
-                Console.WriteLine(index + ". " + candidate.GetName() + " " + candidate.getVoices());
-                index++;
-            }
+                foreach (Candidate candidate in candidates)
+                {
+                    Console.WriteLine(index + ". " + candidate.GetName() + " " + candidate.getVoices());
+                    index++;
+                }
 
-            foreach (var c in CandidateVoice)
+                foreach (var c in CandidateVoice)
+                {
+                    Console.WriteLine($"Most votes in {c.GetName()}" + " " + c.getVoices() + " .Hi won");
+                }
+            }
+            else if (currentUser != admin)
             {
-                Console.WriteLine($"Most votes in {c.GetName()}" + " " + c.getVoices() + " .Hi won");
+                Console.WriteLine("You is not admin");
+                Menu();
             }
 
             return candidates;
