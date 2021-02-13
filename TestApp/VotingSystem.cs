@@ -126,6 +126,7 @@ namespace TestApp
             else
             {
                 Console.WriteLine("Wrong login or password");
+                Menu();
             }
         }
 
