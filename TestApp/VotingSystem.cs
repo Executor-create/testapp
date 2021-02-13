@@ -120,6 +120,7 @@ namespace TestApp
             if (admin.AdminEnter(login, password))
             {
                 Console.WriteLine("Welcome to admine cabinet");
+                admin.TrueAdmin();
                 Menu();
             }
             else
@@ -137,7 +138,7 @@ namespace TestApp
 
                 candidates.Add(new Candidate(name));
             }
-            else if (currentUser != admin)
+            else if (currentUser != admin && admin.IsAdmin() == false)
             {
                 Console.WriteLine("You is not admin");
             }
