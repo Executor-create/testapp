@@ -68,7 +68,7 @@ namespace TestApp
                         break;
                 }
 
-            } while (menuIndex != 6);
+            } while (menuIndex != 7);
         }
 
         private static void LogIn()
