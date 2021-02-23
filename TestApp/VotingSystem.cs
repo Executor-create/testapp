@@ -73,25 +73,22 @@ namespace TestApp
 
         private static void LogIn()
         {
-            while (currentUser == null)
+            Console.WriteLine("Enter your login");
+            string login = Console.ReadLine();
+
+            Console.WriteLine("Enter your password");
+            string password = Console.ReadLine();
+
+            currentUser = findUser(login, password);
+
+            if (currentUser != null)
             {
-                Console.WriteLine("Enter your login");
-                string login = Console.ReadLine();
-
-                Console.WriteLine("Enter your password");
-                string password = Console.ReadLine();
-
-                currentUser = findUser(login, password);
-
-                if (currentUser != null)
-                {
-                    Console.WriteLine(currentUser.GetName());
-                    Console.WriteLine("You are logged into your account. You can vote");
-                }
-                else
-                {
-                    Console.WriteLine("Incorrect login or password");
-                }
+                Console.WriteLine(currentUser.GetName());
+                Console.WriteLine("You are logged into your account. You can vote");
+            }
+            else
+            {
+                Console.WriteLine("Incorrect login or password");
             }
         }
 
